@@ -51,7 +51,8 @@ FOR EACH ROW
 BEGIN
     UPDATE Reminders
     SET ExpiryDate = NEW.ExpiryDate,
-        Description = CASE 
+        Description = CASE
+       WHEN NEW.ExpiryDate <= CURRENT_DATE THEN '已過期'
                         WHEN NEW.ExpiryDate <= (CURRENT_DATE + INTERVAL 5 DAY) THEN '即將過期'
                         ELSE NULL
                       END
